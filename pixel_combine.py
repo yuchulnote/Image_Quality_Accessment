@@ -23,10 +23,10 @@ def apply_threshold(image_path, threshold, save_folder):
 
 if __name__ == "__main__":
     input_folder = (
-        "C:/Users/PETNOW/Desktop/ivan/test/threshold/input"  # 입력 이미지가 있는 폴더 이름으로 바꿔주세요
+        ""  # 입력 이미지가 있는 폴더 이름으로 바꿔주세요
     )
     threshold = 150  # 특정 명암값 설정
-    save_folder = "C:/Users/PETNOW/Desktop/ivan/test/threshold/output"  # 결과 이미지를 저장할 폴더 이름으로 바꿔주세요
+    save_folder = ""  # 결과 이미지를 저장할 폴더 이름으로 바꿔주세요
 
     # 결과 이미지를 저장할 폴더가 없다면 생성
     if not os.path.exists(save_folder):
