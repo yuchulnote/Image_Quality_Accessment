@@ -6,10 +6,10 @@ import os
 image_order = 1
 
 # 이미지를 불러올 폴더 경로
-folder_path = "C:/Users/PETNOW/Desktop/ivan/Robert_ivan/result_his/dataset/output-negative"  # 경로를 실제 이미지 폴더 경로로 변경
+folder_path = ""  # 경로를 실제 이미지 폴더 경로로 변경
 
 # 결과 이미지를 저장할 폴더 경로
-output_folder_path = "C:/Users/PETNOW/Desktop/ivan/Robert_ivan/result_his/dataset/output_test/result_negative"  # 경로를 실제 결과 이미지를 저장할 폴더 경로로 변경
+output_folder_path = ""  # 경로를 실제 결과 이미지를 저장할 폴더 경로로 변경
 
 # 특정 명암값
 threshold_value = 200  # 이 값은 특정 명암값으로 변경할 수 있음
