@@ -3,13 +3,13 @@ import numpy as np
 import os
 
 # 이미지를 불러올 폴더 경로
-folder_path = "C:/Users/PETNOW/Desktop/shadow_glare_motionblur/total"
+folder_path = ""
 
 # 이미지를 저장할 폴더 경로
-save_folder_path = "C:/Users/PETNOW/Desktop/saved_images"  # 실제 저장할 폴더 경로로 변경하세요
+save_folder_path = ""  # 실제 저장할 폴더 경로로 변경하세요
 
 # 특정 명암값
-threshold_value = 180
+threshold_value = 200
 
 # 파일 리스트 불러오기
 file_list = [
@@ -62,24 +62,24 @@ cv2.imshow("Image", final_image)
 while True:
     key = cv2.waitKey(0)
 
-    if key == ord("n"):  # 'n' 키가 눌렸을 때 다음 이미지로 이동
+    if key == ord("."):  # 'n' 키가 눌렸을 때 다음 이미지로 이동
         index += 1
         if index >= len(file_list):  # 마지막 이미지에서 'n' 키를 누르면 프로그램 종료
             break
         final_image = process_image(index, threshold_value)
         cv2.imshow("Image", final_image)
-    elif key == ord("p"):  # 'p' 키가 눌렸을 때 이전 이미지로 이동
+    elif key == ord(","):  # 'p' 키가 눌렸을 때 이전 이미지로 이동
         index -= 1
         if index < 0:  # 처음 이미지에서 'p' 키를 누르면 프로그램 종료
             break
         final_image = process_image(index, threshold_value)
         cv2.imshow("Image", final_image)
-    elif key == ord("+"):  # '+' 키가 눌렸을 때 threshold_value 증가
+    elif key == ord("]"):  # '+' 키가 눌렸을 때 threshold_value 증가
         if threshold_value < 255:  # threshold_value 가 255보다 클 경우 증가시키지 않음
             threshold_value += 1
         final_image = process_image(index, threshold_value)
         cv2.imshow("Image", final_image)
-    elif key == ord("-"):  # '-' 키가 눌렸을 때 threshold_value 감소
+    elif key == ord("["):  # '-' 키가 눌렸을 때 threshold_value 감소
         if threshold_value > 0:  # threshold_value 가 0보다 작을 경우 감소시키지 않음
             threshold_value -= 1
         final_image = process_image(index, threshold_value)
