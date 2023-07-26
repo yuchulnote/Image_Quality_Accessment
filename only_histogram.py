@@ -16,8 +16,8 @@ def apply_histogram_equalization(input_image_path, output_folder):
 
 
 if __name__ == "__main__":
-    input_folder = "C:/Users/PETNOW/Desktop/ivan/Robert_ivan/result_his/dataset/output-negative"  # 입력 이미지 폴더 경로로 변경해주세요
-    output_folder = "C:/Users/PETNOW/Desktop/ivan/Robert_ivan/result_his/dataset/output_test/negative"  # 평탄화된 이미지를 저장할 폴더 경로로 변경해주세요
+    input_folder = ""  # 입력 이미지 폴더 경로로 변경해주세요
+    output_folder = ""  # 평탄화된 이미지를 저장할 폴더 경로로 변경해주세요
 
     # 폴더가 없으면 생성
     if not os.path.exists(output_folder):
