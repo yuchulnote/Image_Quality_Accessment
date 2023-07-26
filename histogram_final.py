@@ -10,11 +10,11 @@ LOW_THRESHOLD: int = 50
 HIGH_THRESHOLD: int = 230
 
 INPUT_IMAGE_PATH: str = (
-    "C:/Users/PETNOW/Desktop/ivan/Robert_ivan/result_his/dataset/output-positive"
+    ""
 )
 STD_HAE_THRESHOLD: int = 50
 
-OUTPUT_PATH = "C:/Users/PETNOW/Desktop/ivan/Robert_ivan/result_his/output/Positive"
+OUTPUT_PATH = ""
 
 
 def calculate_metrics(img, mask):
@@ -135,7 +135,7 @@ def show_hist_v(img_path):
     ax2.set_title("Value Histogram")
 
     # Save the figure
-    output_path = f"./shadow-result/Positive/{os.path.basename(img_path)}"
+    output_path = f"/{os.path.basename(img_path)}"
     plt.savefig(output_path)
     # plt.show()
     plt.close()
