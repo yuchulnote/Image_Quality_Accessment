@@ -22,8 +22,8 @@ def convert_images_to_grayscale(input_folder, output_folder):
 
 
 # 입력 폴더와 출력 폴더 경로를 지정
-input_folder = "C:/Users/PETNOW/Desktop/ivan/test/original"
-output_folder = "C:/Users/PETNOW/Desktop/ivan/test/gray"
+input_folder = ""
+output_folder = ""
 
 # 이미지를 그레이스케일로 변환 수행
 convert_images_to_grayscale(input_folder, output_folder)
