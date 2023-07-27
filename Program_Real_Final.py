@@ -5,7 +5,7 @@ import os
 # Image directory
 folder_path = "C:/Users/PETNOW/Desktop/idea_glare/glare_positive_motionblur_negative"
 save_folder_path = "C:/Users/PETNOW/Desktop/idea_glare/saved_image"
-threshold_value = 180
+threshold_value = 190
 max_size = 150
 
 # Load all images
@@ -42,16 +42,43 @@ def remove_large_components(image, max_size):
     return image
 
 
-def highlight_regions(image, binary_mask, color=(0, 255, 0)):
-    highlighted_image = image.copy()
-    highlighted_image = cv2.cvtColor(
-        highlighted_image, cv2.COLOR_GRAY2BGR
-    )  # Convert grayscale image to BGR
+def highlight_regions_before(image, binary_mask, color=(0, 255, 0)):
+    if len(image.shape) == 2:
+        highlighted_image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+    else:
+        highlighted_image = image.copy()
     highlighted_image[np.where(binary_mask == 255)] = color
     return highlighted_image
 
 
-def concatenate_images(original, clahe_img, threshold_img, preprocessed_img, final_img):
+def highlight_regions(image, binary_mask, color=(0, 255, 0)):
+    highlighted_image = image.copy()
+    highlighted_image[np.where(binary_mask == 255)] = color
+    return highlighted_image
+
+
+def concatenate_images(
+    original,
+    clahe_img,
+    threshold_img,
+    postprocessed_img,
+    preprocessed_highlighted_img,
+    postprocessed_highlighted_img,
+):
+    if len(preprocessed_highlighted_img.shape) == 2:
+        preprocessed_highlighted_img_bgr = cv2.cvtColor(
+            preprocessed_highlighted_img, cv2.COLOR_GRAY2BGR
+        )
+    else:
+        preprocessed_highlighted_img_bgr = preprocessed_highlighted_img
+
+    if len(postprocessed_highlighted_img.shape) == 2:
+        postprocessed_highlighted_img_bgr = cv2.cvtColor(
+            postprocessed_highlighted_img, cv2.COLOR_GRAY2BGR
+        )
+    else:
+        postprocessed_highlighted_img_bgr = postprocessed_highlighted_img
+
     clahe_img_bgr = (
         cv2.cvtColor(clahe_img, cv2.COLOR_GRAY2BGR)
         if len(clahe_img.shape) == 2
@@ -62,13 +89,20 @@ def concatenate_images(original, clahe_img, threshold_img, preprocessed_img, fin
         if len(threshold_img.shape) == 2
         else threshold_img
     )
-    preprocessed_img_bgr = (
-        cv2.cvtColor(preprocessed_img, cv2.COLOR_GRAY2BGR)
-        if len(preprocessed_img.shape) == 2
-        else preprocessed_img
+    postprocessed_img_bgr = (
+        cv2.cvtColor(postprocessed_img, cv2.COLOR_GRAY2BGR)
+        if len(postprocessed_img.shape) == 2
+        else postprocessed_img
     )
     return np.concatenate(
-        (original, clahe_img_bgr, threshold_img_bgr, preprocessed_img_bgr, final_img),
+        (
+            original,
+            clahe_img_bgr,
+            threshold_img_bgr,
+            postprocessed_img_bgr,
+            preprocessed_highlighted_img_bgr,
+            postprocessed_highlighted_img_bgr,
+        ),
         axis=1,
     )
 
@@ -115,15 +149,16 @@ def process_image(index, threshold_value, max_size):
     clahe_img = apply_clahe(gray)
     threshold_img = create_threshold_img(clahe_img, threshold_value)
     preprocessed_img = threshold_img.copy()
+    preprocessed_highlighted_img = highlight_regions_before(original, preprocessed_img)
     postprocessed_img = remove_large_components(threshold_img.copy(), max_size)
-    preprocessed_img_bgr = highlight_regions(
-        cv2.cvtColor(original, cv2.COLOR_BGR2GRAY), preprocessed_img
-    )
-    postprocessed_img_bgr = highlight_regions(
-        cv2.cvtColor(original, cv2.COLOR_BGR2GRAY), postprocessed_img
-    )
+    postprocessed_highlighted_img = highlight_regions(original, postprocessed_img)
     final_image = concatenate_images(
-        original, clahe_img, threshold_img, preprocessed_img_bgr, postprocessed_img_bgr
+        original,
+        clahe_img,
+        threshold_img,
+        postprocessed_img,
+        preprocessed_highlighted_img,
+        postprocessed_highlighted_img,
     )
     final_image = add_image_info(final_image, filename, threshold_value, max_size)
     return final_image
