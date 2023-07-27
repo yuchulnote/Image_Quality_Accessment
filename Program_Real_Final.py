@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 # Image directory
-folder_path = "C:/Users/PETNOW/Desktop/idea_glare/glare_positive_motionblur_negative"
-save_folder_path = "C:/Users/PETNOW/Desktop/idea_glare/saved_image"
+folder_path = ""
+save_folder_path = ""
 threshold_value = 190
 max_size = 150
 
